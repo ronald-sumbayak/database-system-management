@@ -1,4 +1,3 @@
-drop database sbd_fasor;
 create database sbd_fasor;
 use sbd_fasor;
 
