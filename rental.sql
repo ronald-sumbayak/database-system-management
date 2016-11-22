@@ -3,7 +3,7 @@ use sbd_rental;
 
 -- a
 create table supplier (
-    sup_id char (4),
+    sup_id     char (4),
     sup_nama   varchar (30),
     sup_kota   varchar (20),
     sup_telp   varchar (12),
