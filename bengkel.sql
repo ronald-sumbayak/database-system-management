@@ -110,21 +110,11 @@ modify plg_nama varchar (50);
 
 -- c
 insert into pelanggan values
-("PLG001", "Ulin Nuha",           "Jl. Siwalankerto Timur III No. 9 Surabaya", "P",
- "085645082052", "0315683733", "L 1996 YZ", "TYT001",
- "ALP001", "Black",         "Toyota Alphard",        2016),
-("PLG002", "Kevin Andrea",        "Jl. Kalikepiting No. 163 W2",               "L",
- "083806400018", "0312880020", "L 1357 UY", "HND001",
- "MBL001", "Modern Steel",  "Honda Mobilio",         2016),
-("PLG003", "Dicky Ramadhan",      "Tambak Medokan Ayu IV/18",                  "L",
- "08885030180",  "0315404116", "L 7003 AP", "DHS001",
- "LXO001", "Grey Metallic", "Daihatsu Luxio",        2016),
-("PLG004", "Windi Astuti",        "Keputih Gg Makam blok B2",                  "P",
- "083849879126", "0312950777", "L 1999 YZ", "MCS001",
- "BCC001", "Silver",        "Mercedes Benz C-Class", 2016),
-("PLG005", "Reynaldi Tejakesuma", "Jl. Sutorejo Utara Baru No. 42",            "L",
- "0896966294",   "0313293364", "L 838 AS",  "SZK001",
- "APV001", "Light Grey",    "Suzuki APV",            2016);
+("PLG001", "Ulin Nuha",           "Jl. Siwalankerto Timur III No. 9 Surabaya", "P", "085645082052", "0315683733", "L 1996 YZ", "TYT001", "ALP001", "Black",         "Toyota Alphard",        2016),
+("PLG002", "Kevin Andrea",        "Jl. Kalikepiting No. 163 W2",               "L", "083806400018", "0312880020", "L 1357 UY", "HND001", "MBL001", "Modern Steel",  "Honda Mobilio",         2016),
+("PLG003", "Dicky Ramadhan",      "Tambak Medokan Ayu IV/18",                  "L", "08885030180",  "0315404116", "L 7003 AP", "DHS001", "LXO001", "Grey Metallic", "Daihatsu Luxio",        2016),
+("PLG004", "Windi Astuti",        "Keputih Gg Makam blok B2",                  "P", "083849879126", "0312950777", "L 1999 YZ", "MCS001", "BCC001", "Silver",        "Mercedes Benz C-Class", 2016),
+("PLG005", "Reynaldi Tejakesuma", "Jl. Sutorejo Utara Baru No. 42",            "L", "0896966294",   "0313293364", "L 838 AS",  "SZK001", "APV001", "Light Grey",    "Suzuki APV",            2016);
 
 insert into pegawai values
 ("PEG001", "Iqbal Noverio Praditya",  "Asrama ITS Blok I - 311 Kampus ITS Sukolilo", "Manager", 2000000),
