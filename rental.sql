@@ -36,7 +36,7 @@ create table pelanggan (
     pgn_hp           varchar (12),
     pgn_password     varchar (10),
     primary key (pgn_email),
-    foreign key (tipe_keanggotaan) references keanggotaan (tipe_keanggotaan)
+    constraint fk_pelanggan_keanggotaan foreign key (tipe_keanggotaan) references keanggotaan (tipe_keanggotaan)
 );
 
 create table mobil (
@@ -79,10 +79,9 @@ add pgn_jk char (1);
 
 -- b.3
 alter table pelanggan
-drop foreign key pelanggan_ibfk_1,
-drop index tipe_keanggotaan,
+drop foreign key fk_pelanggan_keanggotaan,
+drop index fk_pelanggan_keanggotaan,
 modify tipe_keanggotaan varchar (3);
-
 alter table keanggotaan modify tipe_keanggotaan varchar (3);
 alter table pelanggan add foreign key (tipe_keanggotaan) references keanggotaan (tipe_keanggotaan);
 

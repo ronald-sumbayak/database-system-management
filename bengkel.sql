@@ -59,7 +59,6 @@ create table transaksi_servis (
     srv_jam time,
     km      integer,
     primary key (srv_id),
-    -- foreign key (peg_id) references pegawai (peg_id),
     foreign key (plg_id) references pelanggan (plg_id),
     foreign key (jl_kode) references jenis_layanan (jl_kode)
 );
@@ -96,8 +95,7 @@ rename table transaksi_servis to transaksi;
 
 -- b.2
 alter table transaksi
-add foreign key (peg_id) references pegawai (peg_id)
-on delete cascade;
+add foreign key (peg_id) references pegawai (peg_id) on delete cascade;
 
 -- b.3
 alter table jenis_pekerjaan
