@@ -126,8 +126,6 @@ where tanggal_checkin = "15-11-10";
 -- 4
 alter table transaksi drop foreign key fk_transaksi_petugas;
 alter table transaksi drop index fk_transaksi_petugas;
--- alter table transaksi add constraint fk_transaksi_petugas foreign key (id_petugas) references petugas (id_petugas);
--- on delete no action;
 delete from petugas where nama_petugas like "k%";
 
 -- 5

@@ -1,4 +1,3 @@
-drop database bengkel;
 create database sbd_bengkel;
 use sbd_bengkel;
 

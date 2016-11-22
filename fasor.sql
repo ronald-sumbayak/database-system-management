@@ -112,7 +112,7 @@ insert into penyewaan_lapangan values
 
 -- 1
 update penyewa
-set alamat_penyewa = "Perum Bumi Marina Mas Gang IIC No. 20, Surabay"
+set alamat_penyewa = "Perum Bumi Marina Mas Gang IIC No. 20, Surabaya"
 where id_penyewa = "CUST004";
 
 -- 2

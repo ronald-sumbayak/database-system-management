@@ -1,4 +1,3 @@
-drop database sbd_rental;
 create database sbd_rental;
 use sbd_rental;
 
