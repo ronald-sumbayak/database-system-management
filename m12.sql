@@ -1,5 +1,5 @@
-create database coba;
-use coba;
+create database m12;
+use m12;
 
 create table mhs (
     nim     varchar (5),
