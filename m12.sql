@@ -52,11 +52,13 @@ where nim = (
 -- 2
 select * from mhs
 where mhs.nim in (
-    select distinct nim
-    from ambilmk
+    select distinct nim from ambilmk
     where nilai > (select avg(nilai) from ambilmk where kodeMk = "A03") and kodeMk = "A03"
 );
 
 -- 3
 select * from mhs
-where nim not in (select distinct nim from ambilmk where kodeMk = "A01");
+where nim not in (
+    select distinct nim from ambilmk
+    where kodeMk = "A01"
+);
