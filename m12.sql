@@ -1,5 +1,5 @@
-create database m12;
-use m12;
+create database sbd_m12;
+use sbd_m12;
 
 create table mhs (
     nim     varchar (5),
