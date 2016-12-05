@@ -1,4 +1,3 @@
-drop database sbd_bengkel_2;
 create database sbd_bengkel_2;
 use sbd_bengkel_2;
 
@@ -224,22 +223,23 @@ where plg_id in (
 
 -- 9
 select * from transaksi_servis
-where transaksi_servis.srv_id in (
-    select srv_id
-    from (select distinct srv_id, sum(detil_suku_cadang.jumlah * suku_cadang.harga_sc) as total_harga
-          from detil_suku_cadang join suku_cadang on detil_suku_cadang.kode_sc = suku_cadang.kode_sc
-          group by srv_id) as total -- return total parts payment per transaction
-        
-    where
-        total_harga <= (select min(total_harga) from ( -- should be optimized :/
-                            select distinct srv_id, sum(detil_suku_cadang.jumlah * suku_cadang.harga_sc) as total_harga
-                            from detil_suku_cadang join suku_cadang on detil_suku_cadang.kode_sc = suku_cadang.kode_sc
-                            group by srv_id) as total)
+where
+    transaksi_servis.srv_id in (
+        select srv_id
+        from (
+            select distinct srv_id, sum(detil_suku_cadang.jumlah * suku_cadang.harga_sc) as total_harga
+            from detil_suku_cadang join suku_cadang on detil_suku_cadang.kode_sc = suku_cadang.kode_sc
+            group by srv_id) as total -- return total parts payment per transaction
+        where
+        total_harga <= (select min(total_harga) from (-- should be optimized :/
+            select distinct srv_id, sum(detil_suku_cadang.jumlah * suku_cadang.harga_sc) as total_harga
+            from detil_suku_cadang join suku_cadang on detil_suku_cadang.kode_sc = suku_cadang.kode_sc
+            group by srv_id) as total)
         || -- or :D
         total_harga >= (select max(total_harga) from (
-                            select distinct srv_id, sum(detil_suku_cadang.jumlah * suku_cadang.harga_sc) as total_harga
-                            from detil_suku_cadang join suku_cadang on detil_suku_cadang.kode_sc = suku_cadang.kode_sc
-                            group by srv_id) as total)
+            select distinct srv_id, sum(detil_suku_cadang.jumlah * suku_cadang.harga_sc) as total_harga
+            from detil_suku_cadang join suku_cadang on detil_suku_cadang.kode_sc = suku_cadang.kode_sc
+            group by srv_id) as total)
 );
 
 
@@ -255,96 +255,89 @@ from detil_pekerjaan;
 select plg_nama, srv_id
 from pelanggan join transaksi_servis on pelanggan.plg_id = transaksi_servis.plg_id
 where
-    srv_id in (select srv_id
-               from detil_suku_cadang
-               group by srv_id having sum(jumlah) >= 3
+    srv_id in (
+        select srv_id from detil_suku_cadang
+        group by srv_id having sum(jumlah) >= 3
     )
     && -- and :D
-    srv_id in (select srv_id
-               from (select distinct srv_id, sum(detil_suku_cadang.jumlah * suku_cadang.harga_sc) as total_harga
-                     from detil_suku_cadang join suku_cadang on detil_suku_cadang.kode_sc = suku_cadang.kode_sc
-                     group by srv_id) as total
-               where total_harga >= (select avg(harga_sc) from suku_cadang)
+    srv_id in (
+        select srv_id from (
+            select distinct srv_id, sum(detil_suku_cadang.jumlah * suku_cadang.harga_sc) as total_harga
+            from detil_suku_cadang join suku_cadang on detil_suku_cadang.kode_sc = suku_cadang.kode_sc
+            group by srv_id) as total
+        where total_harga >= (select avg(harga_sc) from suku_cadang)
     );
 
 -- 12
 select plg_nama from pelanggan
 where
-    plg_id in (select plg_id
-               from (
-                   select plg_id, count(1) as total_service
-                   from transaksi_servis
-                   group by peg_id
-                   having total_service <= avg(total_service)
-               ) as service
+    plg_id in (
+        select plg_id
+        from (
+            select plg_id, count(1) as total_service from transaksi_servis
+            group by peg_id having total_service <= avg(total_service)
+        ) as service
     )
     && -- and
-    plg_id in (select plg_id
-               from transaksi_servis
-               where peg_id in (
-                   select peg_id
-                   from pegawai
-                   where peg_gaji <= (select avg(peg_gaji) from pegawai)
-               )
+    plg_id in (
+        select plg_id
+        from transaksi_servis
+        where peg_id in (
+            select peg_id
+            from pegawai
+            where peg_gaji <= (select avg(peg_gaji) from pegawai)
+        )
     );
 
 -- 13
-select *
-from pegawai
+select * from pegawai
 where
-    peg_id in (select peg_id
-               from (
-                   select peg_id, sum(tarif_pek) as total_fee
-                   from detil_pekerjaan left join jenis_pekerjaan on detil_pekerjaan.kode_pek = jenis_pekerjaan.kode_pek
-                   group by peg_id) as peg1
-               where
-                   total_fee > (select avg(tarif_pek)
-                                from detil_pekerjaan left join jenis_pekerjaan on detil_pekerjaan.kode_pek = jenis_pekerjaan.kode_pek
-               )
+    peg_id in (
+        select peg_id
+        from (
+            select peg_id, sum(tarif_pek) as total_fee
+            from detil_pekerjaan left join jenis_pekerjaan on detil_pekerjaan.kode_pek = jenis_pekerjaan.kode_pek
+            group by peg_id) as peg1
+        where
+            total_fee > (
+                select avg(tarif_pek)
+                from detil_pekerjaan left join jenis_pekerjaan on detil_pekerjaan.kode_pek = jenis_pekerjaan.kode_pek
+            )
     )        
     ||
-    peg_id in (select peg_id
-               from (
-                   select peg_id, sum(tarif_pek) as total_fee
-                   from detil_pekerjaan left join jenis_pekerjaan on detil_pekerjaan.kode_pek = jenis_pekerjaan.kode_pek
-                   group by peg_peg_id) as peg1
-               where
-                   total_fee > (select avg(tarif_pek)
-                                from detil_pekerjaan left join jenis_pekerjaan on detil_pekerjaan.kode_pek = jenis_pekerjaan.kode_pek
-               )
+    peg_id in (
+        select peg_id
+        from (
+            select peg_id, sum(tarif_pek) as total_fee
+            from detil_pekerjaan left join jenis_pekerjaan on detil_pekerjaan.kode_pek = jenis_pekerjaan.kode_pek
+            group by peg_peg_id) as peg1
+        where
+            total_fee > (
+                select avg(tarif_pek)
+                from detil_pekerjaan left join jenis_pekerjaan on detil_pekerjaan.kode_pek = jenis_pekerjaan.kode_pek
+            )
     );
 
 -- 14
-select *
-from pelanggan
+select * from pelanggan
 where plg_id in (
-    select plg_id
-    from transaksi_servis
+    select plg_id from transaksi_servis
     where srv_id in (
-        select srv_id
-        from (
-            select *, sum(jumlah) as total_parts
-            from detil_suku_cadang
-            group by srv_id) as trans_parts
-        where
-            total_parts > (
-                select avg(jumlah)
-                from detil_suku_cadang
-            )
+        select srv_id from (select *, sum(jumlah) as total_parts
+                            from detil_suku_cadang
+                            group by srv_id) as trans_parts
+        where total_parts > (select avg(jumlah) from detil_suku_cadang)
     )
 );
 
 -- 15
-select *
-from pelanggan
+select * from pelanggan
 where
     plg_id in (
-        select plg_id
-        from transaksi_servis
+        select plg_id from transaksi_servis
         where
             srv_id in (
-                select srv_id
-                from (
+                select srv_id from (
                     select *, count(1) as freq
                     from transaksi_servis
                     group by plg_id having freq > avg (freq)
@@ -355,12 +348,10 @@ where
     )
     ||
     plg_id in (
-        select plg_id
-        from transaksi_servis
+        select plg_id from transaksi_servis
         where
             srv_id in (
-                select srv_id
-                from (
+                select srv_id from (
                     select detil_suku_cadang.*, sum(harga_sc * jumlah) as total
                     from detil_suku_cadang left join suku_cadang on detil_suku_cadang.kode_sc = suku_cadang.kode_sc
                     group by srv_id
