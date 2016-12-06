@@ -161,7 +161,7 @@ select pgn_nama from pelanggan
 where pgn_email in (
     select pgn_email from booking
     where month(waktu_ambil) - month(waktu_kembali) = 0
-          &&
+          && -- and
           mbl_id in (select mbl_id from mobil where mbl_warna = "Putih" and mbl_nopol like "DK%")
 );
 
@@ -172,7 +172,7 @@ where mbl_id in (
     where kat_id in (
         select kat_id from kategori_mobil
         where kat_harga_sewa = (select min(kat_harga_sewa) from kategori_mobil)
-              ||
+              || -- or
               kat_harga_sewa = (select max(kat_harga_sewa) from kategori_mobil)
     )
 );
@@ -185,7 +185,7 @@ from supplier
 where mbl_id in (
     select mbl_id from booking
     where rating_mobil > 1
-          ||
+          || -- or
           rating_mobil = (select avg(rating_mobil) from booking)
 );
 
@@ -204,12 +204,12 @@ where booking.mbl_id in (
 select pgn_nama, pgn_kota, booking.pgn_email, driver_nama
 from booking left join pelanggan on booking.pgn_email = pelanggan.pgn_email
 where booking.pgn_email != booking.driver_email
-      &&
+      && -- and
       mbl_id in (
           select mbl_id
           from mobil left join kategori_mobil on mobil.kat_id = kategori_mobil.kat_id
           where mbl_warna != "Hitam"
-                &&
+                && -- and
                 kat_harga_sewa != (select min(kat_harga_sewa) from kategori_mobil)
       );
 
@@ -224,5 +224,5 @@ where month(waktu_kembali) = 12;
 -- 15
 select * from booking
 where datediff(waktu_kembali, waktu_ambil) <= 5
-      &&
-      mbl_id in (select mbl_id from mobil where mbl_warna = "Hitam" && mbl_merk like "Toyota%")
+      && -- and
+      mbl_id in (select mbl_id from mobil where mbl_warna = "Hitam" && -- and mbl_merk like "Toyota%")
