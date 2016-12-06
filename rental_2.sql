@@ -160,10 +160,9 @@ from booking
 select pgn_nama from pelanggan
 where pgn_email in (
     select pgn_email from booking
-    where
-        month(waktu_ambil) - month(waktu_kembali) = 0
-        &&
-        mbl_id in (select mbl_id from mobil where mbl_warna = "Putih" and mbl_nopol like "DK%")
+    where month(waktu_ambil) - month(waktu_kembali) = 0
+          &&
+          mbl_id in (select mbl_id from mobil where mbl_warna = "Putih" and mbl_nopol like "DK%")
 );
 
 -- 10
@@ -172,10 +171,9 @@ where mbl_id in (
     select mbl_id from mobil
     where kat_id in (
         select kat_id from kategori_mobil
-        where
-            kat_harga_sewa = (select min(kat_harga_sewa) from kategori_mobil)
-            ||
-            kat_harga_sewa = (select max(kat_harga_sewa) from kategori_mobil)
+        where kat_harga_sewa = (select min(kat_harga_sewa) from kategori_mobil)
+              ||
+              kat_harga_sewa = (select max(kat_harga_sewa) from kategori_mobil)
     )
 );
 
