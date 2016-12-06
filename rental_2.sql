@@ -132,7 +132,7 @@ where pgn_email = (
 select * from pelanggan
 where pgn_email in (
     select pgn_email from booking
-    having rating_mobil > (select avg (rating_mobil)from booking)
+    having rating_mobil > (select avg (rating_mobil) from booking)
 );
 
 -- 5
