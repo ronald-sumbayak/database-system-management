@@ -292,7 +292,7 @@ begin
     select sum(bonus)
     from   (
         select (shift-2)*100000 as bonus, bns.id_pegawai
-        from (
+        from   (
             select   count(*) shift, pegawai.id_pegawai
             from     menjaga
                      left join pegawai
