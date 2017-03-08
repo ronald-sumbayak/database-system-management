@@ -1,22 +1,22 @@
 create database mbd_praktikum_1;
 use mbd_praktikum_1;
 
-CREATE TABLE PEGAWAI (
-    id_pegawai    CHAR (10) NOT NULL,
-    no_KTP        VARCHAR (20),
-    nama_pegawai  VARCHAR (100),
-    tempat_lahir  VARCHAR (50),
-    tgl_lahir     DATE,
-    alamat        VARCHAR (200),
-    umur          INT (3),
-    no_telp       VARCHAR (15),
-    jabatan       VARCHAR (50),
-    gaji          INT,
-    jenis_kelamin CHAR (1),
-    PRIMARY KEY (id_pegawai)
+create table pegawai (
+    id_pegawai    char (10) not null,
+    no_ktp        varchar (20),
+    nama_pegawai  varchar (100),
+    tempat_lahir  varchar (50),
+    tgl_lahir     date,
+    alamat        varchar (200),
+    umur          int (3),
+    no_telp       varchar (15),
+    jabatan       varchar (50),
+    gaji          int,
+    jenis_kelamin char (1),
+    primary key (id_pegawai)
 );
 
-INSERT INTO PEGAWAI VALUES
+insert into pegawai values
     ('100001','025469863254103','eko baharuddin','mojokerto', '1981/12/08','surabaya','35','08977322486', 'manager',         '10000000','L'),
     ('100002','512469888635214','Nabila Mirdad','Klaten',     '1996/08/12','surabaya','21','081569874562','kasir',           '3000000', 'P'),
     ('100003','356984521369852','Bambang Syahputra','jakarta','1990/06/15','surabaya','27','087869542356','security',        '3000000', 'L'),
@@ -26,32 +26,32 @@ INSERT INTO PEGAWAI VALUES
     ('100007','012245645263455','Maria Mercedes','Papua',     '1996/05/02','surabaya','23','088852642358','pegawai',         '3000000', 'P'),
     ('100008','214574816846354','Stephanie Putri','Sulawesi', '1995/10/12','surabaya','22','085966354862','pegawai',         '3000000', 'P'),
 
-CREATE TABLE STUDIO (
-    id_studio CHAR (5) NOT NULL,
-    no_studio CHAR (3),
-    kapasitas INT (4),
-    PRIMARY KEY (id_studio) 
+create table studio (
+    id_studio char (5) not null,
+    no_studio char (3),
+    kapasitas int (4),
+    primary key (id_studio) 
 );
 
-INSERT INTO STUDIO VALUES
+insert into studio values
     ('Std1','1','75'),
     ('Std2','2','75'),
     ('Std3','3','75');
 
-CREATE TABLE FILM (
-    id_film            CHAR (10) NOT NULL,
-    nama_film          VARCHAR (100),
-    tahun_pembuatan    VARCHAR (5),
-    genre              VARCHAR (50),
-    pemain             VARCHAR (100),
-    deskripsi_film     VARCHAR (1000),
-    tgl_mulai_tayang   DATE,
-    tgl_selesai_tayang DATE,
-    durasi             VARCHAR (15),
-    PRIMARY KEY (id_film)
+create table film (
+    id_film            char (10) not null,
+    nama_film          varchar (100),
+    tahun_pembuatan    varchar (5),
+    genre              varchar (50),
+    pemain             varchar (100),
+    deskripsi_film     varchar (1000),
+    tgl_mulai_tayang   date,
+    tgl_selesai_tayang date,
+    durasi             varchar (15),
+    primary key (id_film)
 );
 
-INSERT INTO FILM VALUES
+insert into film values
     ('FILM0001','LOGAN','2017','action','Hugh Jackman',
         'Pada tahun 2024, Logan (Hugh Jackman) dan Profesor Charles Xavier (Patrick Stewart) harus bertahan tanpa X-Men ketika perusahaan yang dipimpin oleh Nathaniel Essex menghancurkan dunia. ',
         '2017/02/03','2017/03/03','136 menit'),
@@ -68,18 +68,18 @@ INSERT INTO FILM VALUES
         'Ketika Saroo baru berusia lima tahun, ia hidup dalam kemiskinan bersama ibu dan saudara-saudaranya di sebuah kota di India. Saroo dan kakak lelakinya, Guddu sering pergi bersama untuk mengemis di sebuah stasiun kereta. Pada suatu hari, Guddu memberitahu adiknya jika ia akan naik kereta ke kota lain. Mendengar perkataan ini, Saroo memohon kakanya untuk ikut bersamanya. Guddu mengabulkan permohonan adiknya dan pada saat mereka sampai di tempat tujuan, Guddu memberitahu Saroo untuk menunggunya di sebuah peron kereta.',
         '2017/03/01','2017/04/01','118 menit');
 
-CREATE TABLE PEMESAN (
-    id_pemesan            CHAR (10) NOT NULL,
-    nama_pemesan          VARCHAR (100),
-    no_telfon_pemesan     VARCHAR (15),
-    tempat_lahir_pemesan  VARCHAR (100),
-    tanggal_lahir_pemesan DATE,
-    alamat                VARCHAR (100),
-    jenis_kelamin         CHAR (1),
-    PRIMARY KEY (id_pemesan)
+create table pemesan (
+    id_pemesan            char (10) not null,
+    nama_pemesan          varchar (100),
+    no_telfon_pemesan     varchar (15),
+    tempat_lahir_pemesan  varchar (100),
+    tanggal_lahir_pemesan date,
+    alamat                varchar (100),
+    jenis_kelamin         char (1),
+    primary key (id_pemesan)
 );
 
-INSERT INTO pemesan VALUES
+insert into pemesan values
     ('200001','Nadia Rahmatin', '087878854753','Brunei',  '1996/11/06','Keputih gg 2',   'P'),
     ('200002','Nanang Taufan',  '081358696658','Lombok',  '1995/07/15','Perumdos Blok J','L'),
     ('200003','Tiara Anggita',  '085614522258','Jakarta', '1996/12/11','Keputih',        'P'),
@@ -88,18 +88,18 @@ INSERT INTO pemesan VALUES
     ('200006','Fourir Akbar',   '081356893315','Surabaya','1996/04/25','Rungkut',        'L'),
     ('200007','Aditya Gunawan', '082576352869','Surabaya','1996/11/26','Keputih',        'L');
 
-CREATE TABLE MEMUTAR (
-    id_memutar      CHAR (10) NOT NULL,
-    id_film         CHAR (10) NOT NULL,
-    id_studio       CHAR (5),
-    waktu_pemutaran TIME,
-    waktu_selesai   TIME,
-    PRIMARY KEY (id_memutar),
-    FOREIGN KEY (id_film)   REFERENCES FILM (id_film),
-    FOREIGN KEY (id_studio) REFERENCES STUDIO (id_studio)
+create table memutar (
+    id_memutar      char (10) not null,
+    id_film         char (10) not null,
+    id_studio       char (5),
+    waktu_pemutaran time,
+    waktu_selesai   time,
+    primary key (id_memutar),
+    foreign key (id_film)   references film (id_film),
+    foreign key (id_studio) references studio (id_studio)
 );
 
-INSERT INTO memutar VALUES
+insert into memutar values
     ('M001','FILM0001','Std1','0000-00-00 12:00:00','0000-00-00 14:30:00'),
     ('M002','FILM0001','Std1','0000-00-00 15:00:00','0000-00-00 17:30:00'),
     ('M003','FILM0001','Std1','0000-00-00 18:00:00','0000-00-00 20:30:00'),
@@ -114,19 +114,19 @@ INSERT INTO memutar VALUES
     ('M012','FILM0005','Std3','0000-00-00 19:30:00','0000-00-00 21:30:00');
 
 
-CREATE TABLE MENJAGA (
-    id_jaga      CHAR (10) NOT NULL,
-    id_pegawai   CHAR (10) NOT NULL,
-    id_studio    CHAR (5) NOT NULL,
-    jam_mulai    TIME,
-    jam_selesai  TIME,
-    tanggal_jaga DATE,
-    PRIMARY KEY (id_jaga),
-    FOREIGN KEY (id_pegawai) REFERENCES PEGAWAI (id_pegawai),
-    FOREIGN KEY (id_studio)  REFERENCES STUDIO (id_studio)
+create table menjaga (
+    id_jaga      char (10) not null,
+    id_pegawai   char (10) not null,
+    id_studio    char (5)  not null,
+    jam_mulai    time,
+    jam_selesai  time,
+    tanggal_jaga date,
+    primary key (id_jaga),
+    foreign key (id_pegawai) references pegawai (id_pegawai),
+    foreign key (id_studio)  references studio (id_studio)
 );
 
-INSERT INTO menjaga VALUES
+insert into menjaga values
     ('J001','100005','Std1','0000-00-00 11:00:00','0000-00-00 15:00:00','2017-03-07'),
     ('J002','100008','Std1','0000-00-00 15:00:00','0000-00-00 19:00:00','2017-03-07'),
     ('J003','100005','Std1','0000-00-00 19:00:00','0000-00-00 22:30:00','2017-03-07'),
@@ -137,7 +137,7 @@ INSERT INTO menjaga VALUES
     ('J008','100007','Std3','0000-00-00 15:00:00','0000-00-00 19:00:00','2017-03-07'),
     ('J009','100007','Std3','0000-00-00 19:00:00','0000-00-00 22:30:00','2017-03-07');
 
-INSERT INTO menjaga VALUES
+insert into menjaga values
     ('J010','100005','Std1','0000-00-00 11:00:00','0000-00-00 15:00:00','2017-03-08'),
     ('J011','100008','Std1','0000-00-00 15:00:00','0000-00-00 19:00:00','2017-03-08'),
     ('J012','100005','Std1','0000-00-00 19:00:00','0000-00-00 22:30:00','2017-03-08'),
@@ -149,22 +149,22 @@ INSERT INTO menjaga VALUES
     ('J018','100007','Std3','0000-00-00 19:00:00','0000-00-00 22:30:00','2017-03-08');
 
 
-CREATE TABLE TRANSAKSI (
-    id_transaksi      CHAR (10) NOT NULL,
-    id_pegawai        CHAR (10) NOT NULL,
-    id_memutar        CHAR (10) NOT NULL,
-    id_pemesan        CHAR (10) NOT NULL,
-    jumlah_tiket      INT (3),
-    harga_pertiket    INT,
-    tanggal_pembelian DATE,
-    total_pembayaran  INT,
-    PRIMARY KEY (id_transaksi),
-    FOREIGN KEY (id_pegawai) REFERENCES PEGAWAI (id_pegawai),
-    FOREIGN KEY (id_memutar) REFERENCES MEMUTAR (id_memutar),
-    FOREIGN KEY (id_pemesan) REFERENCES PEMESAN (id_pemesan)
+create table transaksi (
+    id_transaksi      char (10) not null,
+    id_pegawai        char (10) not null,
+    id_memutar        char (10) not null,
+    id_pemesan        char (10) not null,
+    jumlah_tiket      int (3),
+    harga_pertiket    int,
+    tanggal_pembelian date,
+    total_pembayaran  int,
+    primary key (id_transaksi),
+    foreign key (id_pegawai) references pegawai (id_pegawai),
+    foreign key (id_memutar) references memutar (id_memutar),
+    foreign key (id_pemesan) references pemesan (id_pemesan)
 );
 
-INSERT INTO transaksi VALUES
+insert into transaksi values
     ('T0001','100002','M001','200001','5', '35000','2017-03-06','11'),
     ('T0002','100002','M001','200004','2', '35000','2017-03-06','11'),
     ('T0003','100002','M001','200003','9', '35000','2017-03-06','11'),
@@ -261,7 +261,7 @@ insert into FILM values (
     'Just watch it.',
     '2017/02/03','2017/03/03','600 menit'
 );
-update film set nama_film = "LOGAN" where nama_film = "LOGAN";
+update film set nama_film = "Test Film 1 Revised" where nama_film = "Test Film 1";
 delete from film where id_film = "FILM6666";
 
 -- 3 --
@@ -289,7 +289,8 @@ deterministic
 begin
 
     declare bonus_ int;
-    select sum(bonus) from (
+    select sum(bonus)
+    from   (
         select (shift-2)*100000 as bonus, bns.id_pegawai
         from (
             select   count(*) shift, pegawai.id_pegawai
