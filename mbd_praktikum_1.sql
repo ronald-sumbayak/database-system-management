@@ -1,4 +1,4 @@
-create database mbd_praktikum_1;
+create database mbd_praktikum_1;44
 use mbd_praktikum_1;
 
 create table pegawai (
