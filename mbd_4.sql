@@ -25,7 +25,7 @@ begin
     if row_count() > 0 then
         select concat("Ada ", row_count(), " traksaksi yang mendapat potongan harga tiket") "DBMS_OUTPUT";
     else
-        select "Tidak ada yang mendapat potongan harga_tiket" "DBMS_OUTPUT";
+        select "Tidak ada yang mendapat potongan harga_tiket" as "DBMS_OUTPUT";
     end if;
 end$$
 delimiter ;
@@ -51,6 +51,7 @@ begin
 
     set list_nama = "";
     open pegawai_cursor;
+
     retrieve_pegawai: loop
         fetch pegawai_cursor into nama;
         if done = true then
@@ -58,6 +59,7 @@ begin
         end if;
         set list_nama = concat(list_nama, ", ", nama);
     end loop retrieve_pegawai;
+
     select list_nama "List Pegawai";
     close pegawai_cursor;
 end$$
