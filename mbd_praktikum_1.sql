@@ -1,4 +1,4 @@
-create database mbd_praktikum_1;44
+create database mbd_praktikum_1;
 use mbd_praktikum_1;
 
 create table pegawai (
@@ -24,13 +24,13 @@ insert into pegawai values
     ('100005','526353563565634','Kelly Camila','Kalimantan',  '1995/05/02','surabaya','22','081245698523','pegawai',         '3000000', 'P'),
     ('100006','258463685743486','Reza Ahmad Putra','Depok',   '1994/05/12','surabaya','23','088852642358','pegawai',         '3000000', 'L'),
     ('100007','012245645263455','Maria Mercedes','Papua',     '1996/05/02','surabaya','23','088852642358','pegawai',         '3000000', 'P'),
-    ('100008','214574816846354','Stephanie Putri','Sulawesi', '1995/10/12','surabaya','22','085966354862','pegawai',         '3000000', 'P'),
+    ('100008','214574816846354','Stephanie Putri','Sulawesi', '1995/10/12','surabaya','22','085966354862','pegawai',         '3000000', 'P');
 
 create table studio (
     id_studio char (5) not null,
     no_studio char (3),
     kapasitas int (4),
-    primary key (id_studio) 
+    primary key (id_studio)
 );
 
 insert into studio values
@@ -203,9 +203,9 @@ as
     where    tanggal_pembelian = "2017-03-08"
     group by transaksi.id_memutar;
 
-# test    
+# test
 select * from film_8_maret;
-    
+
 -- 2 --
 create table log_memutar (
     id_film         char (10),
@@ -304,7 +304,7 @@ begin
     where  ttl.id_pegawai = id
     into   bonus_;
     return ifnull (bonus_, 0);
-    
+
 end$$
 delimiter ;
 
