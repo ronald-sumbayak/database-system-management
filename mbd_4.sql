@@ -76,7 +76,7 @@ begin
         if done = true then
             leave retrieve_pegawai;
         end if;
-        set list_nama = concat(list_nama, ", ", nama);
+        set list_nama = concat(nama, ", ", list_nama);
     end loop retrieve_pegawai;
 
     select list_nama 'List Pegawai';
