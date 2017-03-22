@@ -91,9 +91,14 @@ call explicit_cursor ();
 ----------------------------------- sequence -----------------------------------
 
 create table contoh_sequence (
-    sequence int auto_increment,
+    sequence   int auto_increment,
+    dummy_text varchar (10),
     primary key (sequence)
 );
 
+-- run this query multiple times.
+insert into contoh_sequence (dummy_text) values ("dummy text");
+
 --------------------------------------------------------------------------------
 ------------------------------------- eof. -------------------------------------
+--------------------------------------------------------------------------------
