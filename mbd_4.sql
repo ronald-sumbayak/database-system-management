@@ -33,7 +33,7 @@ from     film f1 inner join film f2
 --------------------------------------------------------------------------------
 -------------------------------- implicitcursor --------------------------------
 delimiter $$
-create procedure implicit_cursor ()
+create or replace procedure implicit_cursor ()
 begin
     update transaksi
     set    harga_pertiket = 30000
@@ -54,35 +54,36 @@ call implicit_cursor ();
 --------------------------------------------------------------------------------
 -------------------------------- explicitcursor --------------------------------
 delimiter $$
-create procedure explicit_cursor ()
+create or replace procedure explicit_cursor ()
 begin
-    declare list_nama varchar (1000);
-    declare nama      varchar (100);
-    declare done      bool default false;
+    declare id   char (10);
+    declare gaji_ int;
+    declare done bool default false;
 
     declare pegawai_cursor cursor
-    for select nama_pegawai
+    for select id_pegawai, gaji
         from   pegawai;
 
     declare continue handler
     for not found
         set done = true;
 
-    set list_nama = "";
     open pegawai_cursor;
 
     retrieve_pegawai: loop
-        fetch pegawai_cursor into nama;
+        fetch pegawai_cursor into id, gaji_;
         if done = true then
             leave retrieve_pegawai;
         end if;
-        set list_nama = concat(nama, ", ", list_nama);
+        if gaji_ < 5000000 then
+            update pegawai set gaji = gaji + 1000000 where id_pegawai = id;
+        end if;
     end loop retrieve_pegawai;
 
-    select list_nama 'List Pegawai';
     close pegawai_cursor;
 end$$
 delimiter ;
+
 
 -- test
 call explicit_cursor ();
